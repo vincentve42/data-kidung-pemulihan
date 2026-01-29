@@ -42,6 +42,5 @@ function modifyData($id, $conn, $listObject, $connz) {
         $stmt->execute();
         $stmt->close();
     }
-
 }
 ?>
