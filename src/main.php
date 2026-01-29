@@ -5,10 +5,10 @@ include("database.php");
 
 use Pemulihan\Suplemen;
 
-getData(0,$conn);
+getData(0,$conn, $connz);
 
 // Get All Data
-function getData($id, $conn) {
+function getData($id, $conn, $connz) {
 
     if($id == 0)
     {
@@ -20,18 +20,27 @@ function getData($id, $conn) {
 
         while ($row = $result->fetch_assoc()) {
             $judul_baru = explode("\n", $row["isi"],3);
-            $listObject[] = new Suplemen($judul_baru[0], $judul_baru[2]);
-            printf("%s\n",$judul_baru[0]);
+            $listObject[] = new Suplemen($row['judul'],$judul_baru[0], $judul_baru[2]);
+            
         }
         
-        modifyData($id, $conn, $listObject);
+        modifyData($id, $conn, $listObject, $connz);
     }
     
 }
-function modifyData($id, $conn, $listObject) {
+function modifyData($id, $conn, $listObject, $connz) {
     foreach($listObject as $object)
     {
-       
+       $stmt = $connz->prepare("INSERT INTO suplemen (no_kidung, judul, isi) VALUES(?, ?,?)");
+
+       $stmt->bind_param(
+        "sss",
+        $object->no_kidung,
+        $object->judul,
+        $object->isi);
+
+        $stmt->execute();
+        $stmt->close();
     }
 
 }
