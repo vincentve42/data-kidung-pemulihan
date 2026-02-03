@@ -38,19 +38,29 @@ async def on_message(message):
                 status = 1
                 print(status)
         
-    else:    
-        arr = message.content.split("\n", 1)
-        mycursor = mydb.cursor()
+    else:
+        if status == 0:
+            arr = message.content.split("\n", 1)
+            mycursor = mydb.cursor()
 
-        number = int(arr[0].replace("S.", "").strip())
-    
-        run = "INSERT INTO suplemen (judul, isi) VALUES(%s, %s)"
-        val = (number, arr[1])
+            number = int(arr[0].replace("S.", "").strip())
+        
+            run = "INSERT INTO suplemen (judul, isi) VALUES(%s, %s)"
+            val = (number, arr[1])
 
-        mycursor.execute(run,val)
+            mycursor.execute(run,val)
 
-        mydb.commit()
-    
+            mydb.commit()
+        if status == 1:
+            arr = message.content.split("\n", 1)
+            mycursor = mydb.cursor()
 
-   
+            number = int(arr[0].replace("K.", "").strip())
+        
+            run = "INSERT INTO kidung (judul, isi) VALUES(%s, %s)"
+            val = (number, arr[1])
+
+            mycursor.execute(run,val)
+
+            mydb.commit()
 bot.run(TOKEN)
