@@ -67,7 +67,7 @@ function modifyData($id, $conn, $listObject, $connz) {
     {
         foreach($listObject as $object)
         {
-            $stmt = $connz->prepare("INSERT INTO suplemen (no_kidung, chord, judul, isi) VALUES(?, ?,?)");
+            $stmt = $connz->prepare("INSERT INTO kidung (no_kidung, chord, judul, isi) VALUES(?, ?,?)");
 
             $stmt->bind_param(
                 "ssss",
