@@ -4,6 +4,7 @@ include("object.php");
 include("database.php");
 
 use Pemulihan\Suplemen;
+use Kidung\Kidung;
 
 getData(0,$conn, $connz);
 
@@ -26,21 +27,58 @@ function getData($id, $conn, $connz) {
         
         modifyData($id, $conn, $listObject, $connz);
     }
+    else if($id == 1)
+    {
+        $listObject = [];
+
+        $query = "SELECT * FROM kidung";
+
+        $hasil = $conn->query($query);
+
+        while($row = $hasil->fetch_assoc())
+        {
+            $isi = explode('\n', $row['isi'],4);
+            
+            $listObject[] = new Kidung($isi[0], $isi[2], $isi[1], $isi[3]);
+
+            
+        }
+    }
     
 }
 function modifyData($id, $conn, $listObject, $connz) {
-    foreach($listObject as $object)
+    if($id == 0)
     {
-       $stmt = $connz->prepare("INSERT INTO suplemen (no_kidung, judul, isi) VALUES(?, ?,?)");
+        foreach($listObject as $object)
+        {
+        $stmt = $connz->prepare("INSERT INTO suplemen (no_kidung, judul, isi) VALUES(?, ?,?)");
 
-       $stmt->bind_param(
-        "sss",
-        $object->no_kidung,
-        $object->judul,
-        $object->isi);
+        $stmt->bind_param(
+            "sss",
+            $object->no_kidung,
+            $object->judul,
+            $object->isi);
 
-        $stmt->execute();
-        $stmt->close();
+            $stmt->execute();
+            $stmt->close();
+        }
+    }
+    else if($id == 1)
+    {
+        foreach($listObject as $object)
+        {
+            $stmt = $connz->prepare("INSERT INTO suplemen (no_kidung, chord, judul, isi) VALUES(?, ?,?)");
+
+            $stmt->bind_param(
+                "ssss",
+                $object->no_kidung,
+                $object->chord,
+                $object->judul,
+                $object->isi);
+
+                $stmt->execute();
+                $stmt->close();
+            }
     }
 }
 ?>
