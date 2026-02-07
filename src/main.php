@@ -49,26 +49,29 @@ function getData($id, $conn, $connz) {
 function modifyData($id, $conn, $listObject, $connz) {
     if($id == 0)
     {
+        $stmt = $connz->prepare("INSERT INTO kidung (no_kidung, chord, judul, isi) VALUES(?, ?,?, ?)");
+
         foreach($listObject as $object)
         {
-        $stmt = $connz->prepare("INSERT INTO suplemen (no_kidung, judul, isi) VALUES(?, ?,?)");
+            $stmt = $connz->prepare("INSERT INTO suplemen (no_kidung, judul, isi) VALUES(?, ?,?)");
 
-        $stmt->bind_param(
-            "sss",
-            $object->no_kidung,
-            $object->judul,
-            $object->isi);
+            $stmt->bind_param(
+                "sss",
+                $object->no_kidung,
+                $object->judul,
+                $object->isi);
 
-            $stmt->execute();
-            $stmt->close();
-        }
+                $stmt->execute();
+                $stmt->close();
+            }
     }
     else if($id == 1)
     {
+        $stmt = $connz->prepare("INSERT INTO kidung (no_kidung, chord, judul, isi) VALUES(?, ?,?, ?)");
+
         foreach($listObject as $object)
         {
-            $stmt = $connz->prepare("INSERT INTO kidung (no_kidung, chord, judul, isi) VALUES(?, ?,?, ?)");
-
+           
             $stmt->bind_param(
                 "ssss",
                 $object->no_kidung,
