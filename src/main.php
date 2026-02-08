@@ -40,7 +40,7 @@ function getData($id, $conn, $connz) {
         {
             $isi = explode("\n", $row['isi'],3);
             printf("%s", $isi[2]);
-            $listObject[] = new Kidung($row["judul"], $isi[0], "", $isi[2]);
+            $listObject[] = new Kidung($row["judul"], $isi[0],  $isi[2]);
 
             
         }
