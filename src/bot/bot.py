@@ -3,11 +3,17 @@ from discord.ext import commands
 import mysql.connector as sql
 from dotenv import load_dotenv
 import os
+
 # 
 
 load_dotenv()
 
 TOKEN = os.getenv("TOKEN")
+
+# Penanda Kidung
+
+KIDUNG = "No."
+SUPLEMEN = "S."
 
 # Sql Connect
 
@@ -26,24 +32,31 @@ status = -1
 
 @bot.event
 async def on_message(message):
-    
+    global status
     print(message.content)  
+    print(status)
     if message.content.startswith("!"):
+        
         argument = message.content.split(" ", 2)
-        if(argument[1] == 'status'): 
-            if argument[2] == '0' or argument[2] == "suplemen":
+
+        print(argument)
+
+        if(argument[0] == '!status'): 
+            
+            if argument[1] == '0' or argument[1] == "suplemen":
                 status = 0
                 print(status)
-            if argument[2] == '1' or argument[2] == "kidung":
+            if argument[1] == '1' or argument[1] == "kidung":
                 status = 1
                 print(status)
         
     else:
+        print(status)
         if status == 0:
             arr = message.content.split("\n", 1)
             mycursor = mydb.cursor()
 
-            number = int(arr[0].replace("S.", "").strip())
+            number = int(arr[0].replace(SUPLEMEN, "").strip())
         
             run = "INSERT INTO suplemen (judul, isi) VALUES(%s, %s)"
             val = (number, arr[1])
@@ -51,12 +64,12 @@ async def on_message(message):
             mycursor.execute(run,val)
 
             mydb.commit()
-        if status == 1:
+        elif status == 1:
             arr = message.content.split("\n", 1)
             mycursor = mydb.cursor()
 
-            number = int(arr[0].replace("K.", "").strip())
-        
+            number = int(arr[0].replace(KIDUNG, "").strip())
+            
             run = "INSERT INTO kidung (judul, isi) VALUES(%s, %s)"
             val = (number, arr[1])
 
