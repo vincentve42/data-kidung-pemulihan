@@ -43,13 +43,12 @@ function getData($method, $conn, $connz) {
         while($row = $hasil->fetch_assoc())
         {
             $isi = explode("\n", $row['isi'],3);
-            printf("%s", $isi[2]);
             $listObject[] = new Kidung($row["judul"], $isi[0],  $isi[2]);
-
-            
         }
-
-       
+    }
+    else{
+        print("Invalid Option [0-1]");
+        return 0;
     }
     modifyData($method, $conn, $listObject, $connz);
     
@@ -57,8 +56,6 @@ function getData($method, $conn, $connz) {
 function modifyData($method, $conn, $listObject, $connz) {
     if($method == 0)
     {
-        
-
         foreach($listObject as $object)
         {
             $stmt = $connz->prepare("INSERT INTO suplemen (no_kidung, judul, isi) VALUES(?, ?,?)");
@@ -90,14 +87,10 @@ function modifyData($method, $conn, $listObject, $connz) {
                 $stmt->execute();
                 $stmt->close();
             }
-        }
-       
-            
+        }       
     }
     else if($method == 1)
     {
-        
-
         foreach($listObject as $object)
         {
             $stmt = $connz->prepare("INSERT INTO kidung (no_kidung, judul, isi) VALUES(?, ?,?)");
@@ -129,9 +122,7 @@ function modifyData($method, $conn, $listObject, $connz) {
                 $stmt->execute();
                 $stmt->close();
             }
-        }
-       
-            
+        }        
     }
 }
 
