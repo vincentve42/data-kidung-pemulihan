@@ -3,6 +3,25 @@
 #### MYSQL
 Data kidung pemulihan menggunakan teknologi database mysql agar bisa diterapkan dalam berbagai bahasa pemograman dengan tujuan akhir yang berbeda-beda
 
+### Cara Memasukan Kidung / Suplemen Baru
+
+- Masukan data kidung atau suplemen baru
+- Masuk ke directory 
+Contoh:
+`` cd data-kidung-pemulihan ``
+- ##### Melalui Bot: 
+- Buat file .env baru
+- Masukan token bot dengan format
+`` TOKEN = TOKENKAMU ``
+- Jalankan bot
+`` py src/bot/bot.py ``
+- Set status bot dengan comment !status [pilihan], 0 buat suplemen 1 buat kidung
+- Copy lirik kidung dan masukan ke discord server tempat bot berada
+
+#### Pengolahan Data
+
+
+
 ##### Contributor
 
 - vincentve42
