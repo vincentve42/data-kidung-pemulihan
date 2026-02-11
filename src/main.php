@@ -7,12 +7,16 @@ include("database.php");
 use Pemulihan\Suplemen;
 use Kidung\Kidung;
 
-getData(1,$conn, $connz);
+$method = $argv[1];
+
+printf("%s",$argv[1]);
+
+getData($method,$conn, $connz);
 
 // Get All Data
-function getData($id, $conn, $connz) {
+function getData($method, $conn, $connz) {
 
-    if($id == 0)
+    if($method == 0)
     {
         $listObject = [];
 
@@ -28,7 +32,7 @@ function getData($id, $conn, $connz) {
         
         
     }
-    else if($id == 1)
+    else if($method == 1)
     {
         $listObject = [];
 
@@ -47,11 +51,11 @@ function getData($id, $conn, $connz) {
 
        
     }
-    modifyData($id, $conn, $listObject, $connz);
+    modifyData($method, $conn, $listObject, $connz);
     
 }
-function modifyData($id, $conn, $listObject, $connz) {
-    if($id == 0)
+function modifyData($method, $conn, $listObject, $connz) {
+    if($method == 0)
     {
         
 
@@ -90,7 +94,7 @@ function modifyData($id, $conn, $listObject, $connz) {
        
             
     }
-    else if($id == 1)
+    else if($method == 1)
     {
         
 
